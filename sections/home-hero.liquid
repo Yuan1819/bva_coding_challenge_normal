@@ -11,8 +11,8 @@
     }
   {%- endstyle -%}
 {%- endif -%}
-<div data-section-id="{{ section.id }}" data-section-type="hero-section">
-  <div class="hero hero--challenge hero-{{ section.id }}{% if section.settings.title != blank or section.settings.description != blank or section.settings.button_label != blank %} hero__overlay{% endif %} box ratio-container lazyload js desktop-only"
+<div data-section-id="{{ section.id }}" data-section-type="hero-section" class="desktop-only">
+  <div class="hero hero--challenge hero-{{ section.id }}{% if section.settings.title != blank or section.settings.description != blank or section.settings.button_label != blank %} hero__overlay{% endif %} box ratio-container lazyload js"
         id="Hero-{{ section.id }}"
         {%- if section.settings.image -%}
         {% unless section.settings.image.alt == blank %}
@@ -66,7 +66,8 @@
   </noscript>
 </div>
 
-<div class="hero hero--challenge hero-{{ section.id }}{% if section.settings.title != blank or section.settings.description != blank or section.settings.button_label != blank %} hero__overlay{% endif %} box ratio-container lazyload js mobile-only"
+<div data-section-id="{{ section.id }}" data-section-type="hero-section" class="mobile-only">
+  <div class="hero hero--challenge hero-{{ section.id }}{% if section.settings.title != blank or section.settings.description != blank or section.settings.button_label != blank %} hero__overlay{% endif %} box ratio-container lazyload js"
         id="Hero-{{ section.id }}"
         {%- if section.settings.mobile_image -%}
         {% unless section.settings.mobile_image.alt == blank %}
@@ -75,7 +76,7 @@
         data-alt="{{ section.settings.mobile_image.alt | escape }}"
         {% endunless %}
         data-bg="{{ section.settings.mobile_image | img_url: '300x300' }}"
-        data-bgset="{% include 'bgset', mobile_image: section.settings.mobile_image %}"
+        data-bgset="{% include 'bgset', image: section.settings.mobile_image %}"
         data-sizes="auto"
         data-parent-fit="cover"
         data-image-loading-animation
@@ -116,9 +117,10 @@
     </div>
   </div>
   <noscript>
-    <div class="hero hero--{{ section.settings.hero_size }}{% if section.settings.title != blank or section.settings.description != blank or section.settings.button_label != blank %} hero__overlay{% endif %}"{% if section.settings.image %}{% unless section.settings.image.alt == blank %} role="img" aria-label="{{ section.settings.image.alt | escape }}"{% endunless %} style="background-image: url('{{ section.settings.image | img_url: '2048x' }}'); background-position: center {{ section.settings.alignment }};"{% endif %}></div>
+    <div class="hero hero--{{ section.settings.hero_size }}{% if section.settings.title != blank or section.settings.description != blank or section.settings.button_label != blank %} hero__overlay{% endif %}"{% if section.settings.mobile_image %}{% unless section.settings.mobile_image.alt == blank %} role="img" aria-label="{{ section.settings.mobile_image.alt | escape }}"{% endunless %} style="background-image: url('{{ section.settings.mobile_image | img_url: '1024' }}'); background-position: center {{ section.settings.alignment }};"{% endif %}></div>
   </noscript>
 </div>
+
 {% schema %}
 {
   "name": "Home Hero",
