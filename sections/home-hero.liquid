@@ -1,0 +1,242 @@
+{%- if section.settings.hero_layout == 'full_width' and section.settings.hero_size == 'adapt' -%}
+  {%- if section.settings.image.aspect_ratio == blank -%}
+    {%- assign min_aspect_ratio = 2.0 -%}
+  {%- else -%}
+    {%- assign min_aspect_ratio = section.settings.image.aspect_ratio -%}
+  {%- endif -%}
+  {%- assign wrapper_height = 100 | divided_by: min_aspect_ratio -%}
+  {%- style -%}
+    .hero-{{ section.id }} {
+      height: {{- wrapper_height -}}vw !important;
+    }
+  {%- endstyle -%}
+{%- endif -%}
+<div data-section-id="{{ section.id }}" data-section-type="hero-section">
+  <div class="hero hero--challenge hero-{{ section.id }}{% if section.settings.title != blank or section.settings.description != blank or section.settings.button_label != blank %} hero__overlay{% endif %} box ratio-container lazyload js desktop-only"
+        id="Hero-{{ section.id }}"
+        {%- if section.settings.image -%}
+        {% unless section.settings.image.alt == blank %}
+        role="img"
+        aria-label="{{ section.settings.image.alt | escape }}"
+        data-alt="{{ section.settings.image.alt | escape }}"
+        {% endunless %}
+        data-bg="{{ section.settings.image | img_url: '300x300' }}"
+        data-bgset="{% include 'bgset', image: section.settings.image %}"
+        data-sizes="auto"
+        data-parent-fit="cover"
+        data-image-loading-animation
+        {%- endif -%}>  
+  {%- if section.settings.image == blank -%}
+    <div class="placeholder-background">
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+  {%- endif -%}
+    <div class="hero__inner">
+      <div class="page-width hero__inner-{{section.settings.hero_align}}">
+        {%- if section.settings.title != blank -%}
+          <h2 class="h1 mega-title{% if section.settings.description_size == 'large' %} mega-title--large{% endif %}">{{ section.settings.title | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <div class="rte-setting mega-subtitle{% if section.settings.description_size == 'large' %} mega-subtitle--large{% endif %}">{{ section.settings.description }}</div>
+        {%- endif -%}
+        {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+          {%- capture ariaLabel -%}
+            {{- section.settings.button_label -}}
+            {%- if section.settings.button_link.type == 'frontpage_link' -%}
+              : {{ 'homepage.general.title' | t -}}
+            {%- elsif section.settings.button_link.type == 'catalog_link' -%}
+              : {{ 'collections.catalog.title' | t -}}
+            {%- elsif section.settings.button_link.object.title -%}
+              : {{ section.settings.button_link.object.title -}}
+            {%- endif -%}
+          {%- endcapture -%}
+
+          <a href="{{ section.settings.button_link }}"
+            class="btn hero__btn"
+            aria-label="{{ ariaLabel }}">
+            {{- section.settings.button_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+  <noscript>
+    <div class="hero hero--{{ section.settings.hero_size }}{% if section.settings.title != blank or section.settings.description != blank or section.settings.button_label != blank %} hero__overlay{% endif %}"{% if section.settings.image %}{% unless section.settings.image.alt == blank %} role="img" aria-label="{{ section.settings.image.alt | escape }}"{% endunless %} style="background-image: url('{{ section.settings.image | img_url: '2048x' }}'); background-position: center {{ section.settings.alignment }};"{% endif %}></div>
+  </noscript>
+</div>
+
+<div class="hero hero--challenge hero-{{ section.id }}{% if section.settings.title != blank or section.settings.description != blank or section.settings.button_label != blank %} hero__overlay{% endif %} box ratio-container lazyload js mobile-only"
+        id="Hero-{{ section.id }}"
+        {%- if section.settings.mobile_image -%}
+        {% unless section.settings.mobile_image.alt == blank %}
+        role="img"
+        aria-label="{{ section.settings.mobile_image.alt | escape }}"
+        data-alt="{{ section.settings.mobile_image.alt | escape }}"
+        {% endunless %}
+        data-bg="{{ section.settings.mobile_image | img_url: '300x300' }}"
+        data-bgset="{% include 'bgset', mobile_image: section.settings.mobile_image %}"
+        data-sizes="auto"
+        data-parent-fit="cover"
+        data-image-loading-animation
+        {%- endif -%}>  
+  {%- if section.settings.mobile_image == blank -%}
+    <div class="placeholder-background">
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+  {%- endif -%}
+    <div class="hero__inner">
+      <div class="page-width hero__inner-center">
+        {%- if section.settings.title != blank -%}
+          <h2 class="h1 mega-title{% if section.settings.description_size == 'large' %} mega-title--large{% endif %}">{{ section.settings.title | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <div class="rte-setting mega-subtitle{% if section.settings.description_size == 'large' %} mega-subtitle--large{% endif %}">{{ section.settings.description }}</div>
+        {%- endif -%}
+        {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+          {%- capture ariaLabel -%}
+            {{- section.settings.button_label -}}
+            {%- if section.settings.button_link.type == 'frontpage_link' -%}
+              : {{ 'homepage.general.title' | t -}}
+            {%- elsif section.settings.button_link.type == 'catalog_link' -%}
+              : {{ 'collections.catalog.title' | t -}}
+            {%- elsif section.settings.button_link.object.title -%}
+              : {{ section.settings.button_link.object.title -}}
+            {%- endif -%}
+          {%- endcapture -%}
+
+          <a href="{{ section.settings.button_link }}"
+            class="btn hero__btn"
+            aria-label="{{ ariaLabel }}">
+            {{- section.settings.button_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+  <noscript>
+    <div class="hero hero--{{ section.settings.hero_size }}{% if section.settings.title != blank or section.settings.description != blank or section.settings.button_label != blank %} hero__overlay{% endif %}"{% if section.settings.image %}{% unless section.settings.image.alt == blank %} role="img" aria-label="{{ section.settings.image.alt | escape }}"{% endunless %} style="background-image: url('{{ section.settings.image | img_url: '2048x' }}'); background-position: center {{ section.settings.alignment }};"{% endif %}></div>
+  </noscript>
+</div>
+{% schema %}
+{
+  "name": "Home Hero",
+  "tag": "section",
+  "class": "index-section index-section--flush",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Configuration"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Section Text Color",
+      "default": "#ffffff"
+    }, 
+    {
+      "type": "select",
+      "id": "hero_align",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "left"
+        }, {
+          "value": "center",
+          "label": "center"
+        }, {
+          "value": "right",
+          "label": "right"
+        }
+      ],
+      "default": "center"
+    }, 
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Image with text overlay"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Description is.."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "CTA Text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "CTA Url"
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "cs": "Obrázek s textovým překryvem",
+        "da": "Billede med tekstoverlejring",
+        "de": "Foto mit überlegtem Text",
+        "en": "Image with text overlay",
+        "es": "Imagen con texto superpuesto",
+        "fi": "Kuva päällä olevalla tekstillä",
+        "fr": "Image avec calque texte",
+        "it": "Immagine con testo",
+        "ja": "テキストオーバーレイ付き画像",
+        "ko": "텍스트 오버레이 포함 이미지",
+        "nb": "Bilde med tekstoverlegg",
+        "nl": "Foto met tekstoverlay",
+        "pl": "Obraz z nakładką tekstową",
+        "pt-BR": "Imagem com sobreposição de texto",
+        "pt-PT": "Imagem com sobreposição de texto",
+        "sv": "Bild med textöverlagring",
+        "th": "การวางซ้อนรูปภาพพร้อมข้อความ",
+        "tr": "Metin katmanı içeren görsel",
+        "vi": "Hình ảnh có lớp phủ văn bản",
+        "zh-CN": "带文本叠加的图片",
+        "zh-TW": "附文字疊加層的圖片"
+      },
+      "category": {
+        "cs": "Obrázek",
+        "da": "Billede",
+        "de": "Foto",
+        "en": "Image",
+        "es": "Imagen",
+        "fi": "Kuva",
+        "fr": "Image",
+        "it": "Immagine",
+        "ja": "画像",
+        "ko": "이미지",
+        "nb": "Bilde",
+        "nl": "Afbeelding",
+        "pl": "Obraz",
+        "pt-BR": "Imagem",
+        "pt-PT": "Imagem",
+        "sv": "Bild",
+        "th": "รูปภาพ",
+        "tr": "Görsel",
+        "vi": "Hình ảnh",
+        "zh-CN": "图片",
+        "zh-TW": "圖片"
+      }
+    }
+  ]
+}
+{% endschema %}
