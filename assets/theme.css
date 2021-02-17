@@ -5842,8 +5842,6 @@ hr {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: var(--color-image-overlay);
-  opacity: var(--opacity-image-overlay);
   z-index: 1; }
 
 .hero__inner {
